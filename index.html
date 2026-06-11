@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Neverland Bandung Premium Final</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Poppins,sans-serif;background:#f5f7ff;color:#0f172a}
+.top{position:fixed;top:0;left:0;width:100%;height:82px;background:#1736b8;display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:999}
+.logo img{height:42px}
+.nav-right{display:flex;gap:10px}
+.nav-btn,.lang-btn{border:none;background:#2d4de0;color:#fff;border-radius:14px;height:50px;padding:0 16px;cursor:pointer}
+.nav-btn{width:50px}
+.main{padding-top:82px}
+.banner img{width:100%;display:block;border-bottom-left-radius:24px;border-bottom-right-radius:24px}
+.wrap{max-width:1000px;margin:auto;padding:50px 40px 120px}
+.tag{display:inline-block;background:#e6ebff;color:#3556ff;padding:10px 14px;border-radius:12px;font-weight:600}
+h1{margin:16px 0 20px;font-size:34px}
+.detail-card,.fac,.talent{background:#fff;border-radius:20px;box-shadow:0 8px 25px rgba(0,0,0,.06)}
+.detail-card{padding:20px;margin-top:25px}
+.item{display:flex;align-items:center;gap:18px;padding:20px 0;font-size:17px;border-bottom:1px solid #eee}
+.item:last-child{border:none}
+.tabs{display:flex;gap:40px;overflow:auto;margin:50px 0 35px;padding-bottom:15px;border-bottom:1px solid #e5e7eb}
+.tab{padding:10px 0;cursor:pointer;white-space:nowrap}
+.tab.active{color:#3556ff;border-bottom:3px solid #3556ff;font-weight:700}
+.tab-content{display:none;line-height:2;font-size:17px}
+.active-content{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.talent{display:flex;align-items:center;padding:14px;margin:14px 0}
+.talent img{width:70px;height:70px;border-radius:12px;margin-right:12px;object-fit:cover}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.fac{padding:18px}
+.social{display:flex;gap:10px;margin-top:12px}
+.social a{text-decoration:none;background:#eef2ff;padding:10px 14px;border-radius:999px}
+.price-card{position:sticky;bottom:0;background:#fff;padding:18px;border-top:1px solid #ddd}
+.btn{display:block;text-align:center;text-decoration:none;background:linear-gradient(135deg,#4160ff,#1736b8);color:#fff;padding:16px;border-radius:16px;font-weight:700}
+@media(max-width:768px){
+.wrap{padding:35px 22px 120px}
+h1{font-size:28px}
+.grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="logo"><img src="logo.png"></div>
+<div class="nav-right">
+<button class="lang-btn">🇮🇩 ID</button>
+<button class="nav-btn">🔍</button>
+<button class="nav-btn">☰</button>
+</div>
+</header>
+<div class="main">
+<div class="banner"><img src="banner.png" alt=""></div>
+<div class="wrap">
+<div class="tag">🎵 Musik</div>
+<h1>NEVERLAND BANDUNG</h1>
+
+<div class="detail-card">
+<div class="item">📅 16 Agustus 2026</div>
+<div class="item">🕒 14:00 - 23:00</div>
+<div class="item">📍 Pangkalan TNI AU Husein Sastranegara</div>
+</div>
+
+<h3 style="margin-top:30px">Penyelenggara</h3>
+<div class="talent">
+<img src="organizer.png"><div><b>Neverland</b><br>Official Organizer</div>
+</div>
+
+<div class="social">
+<a href="#">Instagram</a>
+<a href="#">TikTok</a>
+</div>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab('deskripsi',this)">Deskripsi</div>
+<div class="tab" onclick="showTab('syarat',this)">Syarat & Ketentuan</div>
+<div class="tab" onclick="showTab('talent',this)">Talent</div>
+<div class="tab" onclick="showTab('fasilitas',this)">Fasilitas</div>
+</div>
+
+<div id="deskripsi" class="tab-content active-content">
+<p>Neverland merupakan festival musik yang menghadirkan pengalaman hiburan, petualangan dan kebersamaan dalam satu acara yang spektakuler.</p>
+</div>
+
+<div id="syarat" class="tab-content">
+<ul>
+<li>Tiket yang telah dibeli tidak dapat dikembalikan.</li>
+<li>Wajib membawa identitas diri yang sah.</li>
+<li>Dilarang membawa barang berbahaya.</li>
+</ul>
+</div>
+
+<div id="talent" class="tab-content">
+<div class="talent"><img src="talent1.jpg"><div>LAVORA</div></div>
+<div class="talent"><img src="talent2.jpg"><div>NDX AKA</div></div>
+<div class="talent"><img src="talent3.jpg"><div>GUYON WATON</div></div>
+</div>
+
+<div id="fasilitas" class="tab-content">
+<div class="grid">
+<div class="fac">🍔 Food Court</div>
+<div class="fac">🕌 Musholla</div>
+<div class="fac">🚻 Toilet</div>
+<div class="fac">🅿 Area Parkir</div>
+<div class="fac">📷 Photo Booth</div>
+<div class="fac">➕ Pos Medis</div>
+</div>
+</div>
+</div>
+<div class="price-card">
+<a href="tiket.html" class="btn">🎫 BELI TIKET SEKARANG</a>
+</div>
+</div>
+<script>
+function showTab(id,el){
+document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active-content'));
+document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+document.getElementById(id).classList.add('active-content');
+el.classList.add('active');
+}
+</script>
+</body>
+</html>
