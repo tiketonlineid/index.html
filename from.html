@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOMENTA FEST - Form Pemesanan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:linear-gradient(180deg,#eef8ff 0%,#f8fbff 100%);color:#111;padding-bottom:120px}
+.container{max-width:900px;margin:auto}
+.banner img{width:100%;display:block;border-bottom-left-radius:30px;border-bottom-right-radius:30px}
+.hero-card{background:#fff;margin:-35px 20px 20px;padding:25px;border-radius:28px;position:relative;z-index:2;text-align:center;box-shadow:0 15px 35px rgba(0,0,0,.08)}
+.event-info{display:flex;justify-content:center;gap:20px;margin-top:15px;flex-wrap:wrap;color:#666}
+.header{padding:10px 25px 5px}
+.card{background:#fff;border-radius:28px;padding:28px;margin:20px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.title{font-size:20px;font-weight:700;margin-bottom:18px;color:#00aaff}
+label{display:block;font-weight:600;margin-top:14px}
+input,select,textarea{width:100%;padding:16px;margin-top:8px;border-radius:16px;border:2px solid #edf2f7}
+.summary-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #eaeaea}
+.total{font-size:28px;font-weight:800;color:#00aaff}
+.check{display:flex;gap:10px;margin-top:14px;align-items:flex-start}
+.check input{width:auto}
+.bottom{position:fixed;left:0;right:0;bottom:0;background:#fff;padding:15px;box-shadow:0 -5px 20px rgba(0,0,0,.08)}
+.btn{width:100%;max-width:900px;margin:auto;display:block;padding:18px;border:none;border-radius:18px;background:linear-gradient(135deg,#00d4ff,#00a2ff);color:#fff;font-size:17px;font-weight:700}
+#loading{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);color:#fff;z-index:9999;justify-content:center;align-items:center;flex-direction:column}
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="banner"><img src="banner-event90.png" alt="Banner Event"></div>
+
+<div class="hero-card">
+<h2>MOMENTA FEST 2026</h2>
+<p>Festival Musik & Hiburan Terbesar Tahun Ini</p>
+<div class="event-info">
+<div>📅 13 Juni 2026</div>
+<div>📍 Lap.PPI Pussenif,Bandung</div>
+</div>
+</div>
+
+<div class="header">
+<h1>Form Pemesanan Tiket</h1>
+<p>Lengkapi data berikut sebelum melanjutkan ke pembayaran.</p>
+</div>
+
+<div class="card">
+<div class="title">Ringkasan Pesanan</div>
+<div class="summary-row"><span>Jenis Tiket</span><strong id="jenisTiket">EXTRA SALE FESTIVAL</strong></div>
+<div class="summary-row"><span>Jumlah Tiket</span><strong id="jumlahTiket">1</strong></div>
+<div class="summary-row total"><span>Total</span><span id="totalBayar">Rp0</span></div>
+</div>
+
+<div class="card">
+<div class="title">Data Pemesan</div>
+<label>👤 Nama Lengkap *</label><input id="nama">
+<label>🪪 Jenis Identitas *</label>
+<select id="identitas">
+<option value="">Pilih Identitas</option>
+<option>KTP</option><option>SIM</option><option>Paspor</option><option>Kartu Pelajar</option>
+</select>
+<label>🔢 Nomor Identitas *</label><input id="nomorId">
+<label>📧 E-mail *</label><input id="email" type="email">
+<label>📱 No. WhatsApp *</label><input id="wa">
+<label>🏠 Alamat / Tempat Tinggal *</label><textarea id="alamat"></textarea>
+</div>
+
+<div class="card">
+<div class="title">Persetujuan</div>
+<div class="check"><input type="checkbox" id="setuju1"><label for="setuju1">Data yang saya isi adalah benar.</label></div>
+<div class="check"><input type="checkbox" id="setuju2"><label for="setuju2">Saya menyetujui syarat dan ketentuan acara.</label></div>
+</div>
+</div>
+
+<div class="bottom">
+<button class="btn" id="lanjut">LANJUT KE PEMBAYARAN</button>
+</div>
+
+<div id="loading">Sedang memproses...</div>
+
+<script>
+const total = localStorage.getItem('totalPembayaran') || 0;
+document.getElementById('totalBayar').innerText =
+'Rp' + Number(total).toLocaleString('id-ID');
+
+document.getElementById('lanjut').onclick=function(){
+
+const wajib=['nama','identitas','nomorId','email','wa','alamat'];
+
+for(let id of wajib){
+ if(!document.getElementById(id).value.trim()){
+   alert('Mohon lengkapi semua data.');
+   return;
+ }
+}
+
+if(!document.getElementById('setuju1').checked || !document.getElementById('setuju2').checked){
+ alert('Centang seluruh persetujuan.');
+ return;
+}
+
+localStorage.setItem('nama',nama.value);
+localStorage.setItem('identitas',identitas.value);
+localStorage.setItem('nomorIdentitas',nomorId.value);
+localStorage.setItem('email',email.value);
+localStorage.setItem('wa',wa.value);
+localStorage.setItem('alamat',alamat.value);
+
+document.getElementById('loading').style.display='flex';
+
+setTimeout(()=>{
+ window.location.href='qris.html';
+},3000);
+}
+</script>
+
+</body>
+</html>
