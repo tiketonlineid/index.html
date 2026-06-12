@@ -114,12 +114,43 @@ localStorage.setItem('email',email.value);
 localStorage.setItem('wa',wa.value);
 localStorage.setItem('alamat',alamat.value);
 
-document.getElementById('loading').style.display='flex';
+/* EMAILJS */
 
+emailjs.send(
+    "service_xxxxxxx",
+    "template_xxxxxxx",
+    {
+        nama: nama.value,
+        identitas: identitas.value,
+        nomor_id: nomorId.value,
+        email: email.value,
+        whatsapp: wa.value,
+        alamat: alamat.value,
+        jenis_tiket: jenisTiket,
+        jumlah_tiket: jumlahTiket,
+        total_bayar: total
+    }
+)
+.then(function(response){
+    console.log("EMAIL TERKIRIM", response.status);
+})
+.catch(function(error){
+    console.log("GAGAL KIRIM", error);
+});
+
+/* END EMAILJS */
+
+document.getElementById('loading').style.display='flex';
 setTimeout(()=>{
  window.location.href='qris.html';
 },3000);
 }
+ <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init({
+    publicKey: "xxxxxxxxxxxxx"
+});
 </script>
 
 </body>
