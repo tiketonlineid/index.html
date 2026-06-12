@@ -4,36 +4,201 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pilih Tiket Event</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f5faff;padding:20px;padding-bottom:120px}
-.banner{width:100%;border-radius:20px;overflow:hidden;margin-bottom:20px}
-.banner img{width:100%;display:block}
-.section-title{font-size:26px;font-weight:bold;margin-bottom:20px}
-.ticket-card{background:white;border:2px solid #d8ecff;border-radius:25px;padding:22px;margin-bottom:20px}
-.ticket-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.price{font-size:28px;font-weight:bold}
-.select-btn,.qty-btn,.buy-btn{background:#4169e1;color:#fff;border:none;cursor:pointer}
-.select-btn{padding:12px 18px;border-radius:12px}
-.qty-box{display:none;align-items:center;gap:10px}
-.qty-btn{width:38px;height:38px}
-.checkout{position:fixed;left:0;bottom:0;width:100%;background:#fff;padding:15px}
-.checkout-wrap{display:flex;justify-content:space-between}
+
+body{
+background:#f5faff;
+padding:20px;
+padding-bottom:120px;
+}
+
+.banner{
+width:100%;
+border-radius:20px;
+overflow:hidden;
+margin-bottom:20px;
+}
+
+.banner img{
+width:100%;
+display:block;
+}
+
+.section-title{
+font-size:26px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.ticket-card{
+position:relative;
+background:white;
+border:2px solid #d8ecff;
+border-radius:25px;
+overflow:hidden;
+padding:22px;
+margin-bottom:20px;
+box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.sale{
+display:inline-block;
+background:#dff1ff;
+color:#4169e1;
+padding:8px 14px;
+border-radius:12px;
+font-size:13px;
+font-weight:bold;
+}
+
+.ticket-name{
+font-size:22px;
+font-weight:bold;
+margin-top:15px;
+margin-bottom:12px;
+}
+
+.divider{
+border-top:2px dashed #d8ecff;
+margin:18px 0;
+}
+
+.ticket-bottom{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+}
+
+.price{
+font-size:28px;
+font-weight:bold;
+}
+
+.select-btn,
+.qty-btn,
+.buy-btn{
+background:#4169e1;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+.select-btn{
+padding:12px 18px;
+border-radius:12px;
+font-weight:bold;
+}
+
+.qty-box{
+display:none;
+align-items:center;
+gap:10px;
+}
+
+.qty-btn{
+width:38px;
+height:38px;
+font-size:20px;
+border-radius:10px;
+}
+
+.qty-number{
+font-size:20px;
+font-weight:bold;
+min-width:40px;
+text-align:center;
+}
+
+.checkout{
+position:fixed;
+left:0;
+bottom:0;
+width:100%;
+background:white;
+padding:15px;
+box-shadow:0 -5px 20px rgba(0,0,0,.08);
+}
+
+.checkout-wrap{
+max-width:1000px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.total{
+font-size:22px;
+font-weight:bold;
+}
+
+.buy-btn{
+padding:16px 24px;
+border-radius:14px;
+font-weight:bold;
+}
+
+.buy-btn:disabled{
+background:#b8c7ff;
+cursor:not-allowed;
+}
+
+.loader{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(255,255,255,.9);
+justify-content:center;
+align-items:center;
+font-size:28px;
+font-weight:bold;
+color:#4169e1;
+z-index:9999;
+}
+
+@media(max-width:768px){
+.ticket-bottom{
+flex-direction:column;
+align-items:flex-start;
+}
+.select-btn{width:100%;}
+.buy-btn{width:180px;}
+}
 </style>
 </head>
 <body>
-<div class="banner"><img src="banner-artatix.png"></div>
+
+<div class="banner">
+<img src="banner-artatix.png" alt="Banner">
+</div>
+
 <div class="section-title">🎫 Kategori Tiket</div>
+
 <div id="ticketContainer"></div>
 
 <div class="checkout">
 <div class="checkout-wrap">
-<div><div id="total">Rp0</div></div>
-<button class="buy-btn" id="buyBtn" disabled>Beli Sekarang</button>
+<div>
+<div style="font-size:15px">Total Pembayaran</div>
+<div class="total" id="total">Rp0</div>
+</div>
+
+<button class="buy-btn" id="buyBtn" disabled>
+Beli Sekarang
+</button>
+
 </div>
 </div>
 
+<div class="loader" id="loader">
+Loading...
+</div>
+
 <script>
+
 const tickets=[
 {id:'utara',name:'TRIBUN UTARA & SELATAN',price:150000},
 {id:'utama',name:'TRIBUN UTAMA',price:250000},
@@ -46,53 +211,140 @@ const qty={};
 const container=document.getElementById('ticketContainer');
 
 tickets.forEach(ticket=>{
+
 qty[ticket.id]=0;
-container.innerHTML += `
+
+container.innerHTML+=`
 <div class="ticket-card">
-<h3>${ticket.name}</h3>
-<div class="ticket-bottom">
-<div class="price">Rp${ticket.price.toLocaleString('id-ID')}</div>
-<button class="select-btn" id="${ticket.id}Btn" onclick="showTicket('${ticket.id}')">Pilih Tiket</button>
-<div class="qty-box" id="${ticket.id}Box">
-<button class="qty-btn" onclick="minusQty('${ticket.id}')">-</button>
-<div id="qty_${ticket.id}">1</div>
-<button class="qty-btn" onclick="plusQty('${ticket.id}')">+</button>
+
+<div class="sale">On Sale</div>
+
+<div class="ticket-name">
+${ticket.name}
 </div>
-</div></div>`;
+
+<div class="divider"></div>
+
+<div class="ticket-bottom">
+
+<div class="price">
+Rp${ticket.price.toLocaleString('id-ID')}
+</div>
+
+<button class="select-btn"
+id="${ticket.id}Btn"
+onclick="showTicket('${ticket.id}')">
+Pilih Tiket
+</button>
+
+<div class="qty-box"
+id="${ticket.id}Box">
+
+<button class="qty-btn"
+onclick="minusQty('${ticket.id}')">-</button>
+
+<div class="qty-number"
+id="qty_${ticket.id}">1</div>
+
+<button class="qty-btn"
+onclick="plusQty('${ticket.id}')">+</button>
+
+</div>
+
+</div>
+</div>`;
+
 });
 
 function showTicket(id){
+
 document.getElementById(id+'Btn').style.display='none';
 document.getElementById(id+'Box').style.display='flex';
-if(qty[id]===0) qty[id]=1;
+
+if(qty[id]===0){
+qty[id]=1;
+}
+
 updateTotal();
 }
-function plusQty(id){qty[id]++;updateTotal();}
-function minusQty(id){if(qty[id]>1){qty[id]--;updateTotal();}}
+
+function plusQty(id){
+qty[id]++;
+updateTotal();
+}
+
+function minusQty(id){
+
+if(qty[id]>1){
+qty[id]--;
+updateTotal();
+}
+
+}
 
 function updateTotal(){
+
 let total=0;
 let jumlahTiket=0;
 let tiketDipilih=[];
 
 tickets.forEach(ticket=>{
-document.getElementById('qty_'+ticket.id).innerText=qty[ticket.id];
+
+document.getElementById(
+'qty_'+ticket.id
+).innerText=qty[ticket.id];
+
 if(qty[ticket.id]>0){
-jumlahTiket += qty[ticket.id];
-tiketDipilih.push(ticket.name+' x'+qty[ticket.id]);
+
+jumlahTiket+=qty[ticket.id];
+
+tiketDipilih.push(
+ticket.name+' x'+qty[ticket.id]
+);
+
 }
-total += qty[ticket.id]*ticket.price;
+
+total+=qty[ticket.id]*ticket.price;
+
 });
 
-document.getElementById('total').innerText='Rp'+total.toLocaleString('id-ID');
-document.getElementById('buyBtn').disabled=total<=0;
+document.getElementById('total').innerText=
+'Rp'+total.toLocaleString('id-ID');
 
-localStorage.setItem('totalPembayaran',total);
-localStorage.setItem('jumlahTiket',jumlahTiket);
-localStorage.setItem('jenisTiket',tiketDipilih.join(', '));
+document.getElementById('buyBtn').disabled=
+total<=0;
+
+localStorage.setItem(
+'totalPembayaran',
+total
+);
+
+localStorage.setItem(
+'jumlahTiket',
+jumlahTiket
+);
+
+localStorage.setItem(
+'jenisTiket',
+tiketDipilih.join(', ')
+);
+
 }
 
-document.getElementById('buyBtn').onclick=()=>window.location.href='from.html';
+document.getElementById('buyBtn').onclick=function(){
+
+document.getElementById('loader')
+.style.display='flex';
+
+setTimeout(()=>{
+
+window.location.href='from.html';
+
+},1500);
+
+};
+
 </script>
+
 </body>
 </html>
