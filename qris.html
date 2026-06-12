@@ -3,131 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VENTIX.ID - QRIS</title>
+<title>VENTIX.ID - QRIS Final</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-
-body{
-    background:linear-gradient(135deg,#050505 0%,#081423 40%,#0A2540 100%);
-    color:#fff;
-    padding:20px;
-    min-height:100vh;
-}
-
+body{background:linear-gradient(135deg,#050505,#081423,#0A2540);color:#fff;padding:20px;min-height:100vh}
 .container{max-width:700px;margin:auto}
-
-.card{
-    background:rgba(10,37,64,.35);
-    backdrop-filter:blur(12px);
-    border-radius:24px;
-    padding:22px;
-    margin-bottom:18px;
-    border:1px solid rgba(0,168,255,.25);
-    box-shadow:0 0 25px rgba(0,168,255,.15);
-}
-
+.card{background:rgba(10,37,64,.35);backdrop-filter:blur(12px);border-radius:24px;padding:22px;margin-bottom:18px;border:1px solid rgba(0,168,255,.25)}
 .label{font-size:12px;color:#9fb3c8}
-
-.order{
-    color:#00A8FF;
-    font-weight:700;
-    font-size:18px;
-    text-shadow:0 0 10px rgba(0,168,255,.8);
-}
-
+.order{color:#00A8FF;font-weight:700;font-size:18px}
 .total{font-size:34px;font-weight:800}
-
+.info{margin-top:10px;line-height:1.8}
 .qrwrap{text-align:center}
-
-.qr{
-    display:inline-block;
-    background:#fff;
-    padding:14px;
-    border-radius:24px;
-    box-shadow:0 0 25px rgba(0,168,255,.35);
-}
-
+.qr{display:inline-block;background:#fff;padding:14px;border-radius:24px}
 .qr img{width:270px;display:block}
-
-.upload{
-    border:2px dashed rgba(0,168,255,.5);
-    background:rgba(0,168,255,.05);
-    padding:25px;
-    border-radius:20px;
-    text-align:center;
-    cursor:pointer;
-}
-
-.result{
-    display:none;
-    margin-top:15px;
-    padding:15px;
-    background:#1f1f1f;
-    border-radius:14px;
-}
-
+.upload{border:2px dashed rgba(0,168,255,.5);padding:25px;border-radius:20px;text-align:center;cursor:pointer}
+.result{display:none;margin-top:15px;padding:15px;background:#1f1f1f;border-radius:14px}
 .ok{color:#22c55e;font-weight:700;margin-top:8px}
-
 .confirm{display:flex;gap:10px;margin-top:18px}
-.confirm input{width:18px;height:18px}
-
-button{
-    width:100%;
-    margin-top:20px;
-    padding:18px;
-    border:none;
-    border-radius:16px;
-    background:linear-gradient(90deg,#00A8FF,#1E90FF);
-    color:white;
-    font-weight:800;
-    box-shadow:0 0 25px rgba(0,168,255,.5);
-    transition:.3s;
-}
-
-button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 0 35px rgba(0,168,255,.8);
-}
-
+button{width:100%;margin-top:20px;padding:18px;border:none;border-radius:16px;background:linear-gradient(90deg,#00A8FF,#1E90FF);color:#fff;font-weight:800}
 button:disabled{opacity:.4}
-
-.loading{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:radial-gradient(circle,#0A2540,#050505);
-    z-index:99999;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-}
-
-.spin{
-    width:90px;
-    height:90px;
-    border:6px solid rgba(255,255,255,.15);
-    border-top:6px solid #00A8FF;
-    box-shadow:0 0 20px #00A8FF;
-    border-radius:50%;
-    animation:r 1s linear infinite;
-}
-
+.loading{display:none;position:fixed;inset:0;background:#050505;z-index:99999;justify-content:center;align-items:center;flex-direction:column}
+.spin{width:90px;height:90px;border:6px solid rgba(255,255,255,.15);border-top:6px solid #00A8FF;border-radius:50%;animation:r 1s linear infinite}
 @keyframes r{to{transform:rotate(360deg)}}
-
-.txt{
-    margin-top:25px;
-    font-size:22px;
-    font-weight:700;
-    text-align:center;
-    padding:0 20px;
-}
 </style>
 </head>
 <body>
 
 <div style="text-align:center;margin-bottom:25px">
-    <img src="logo.png" style="max-width:260px;width:100%;" alt="VENTIX.ID">
+<img src="logo.png" style="max-width:260px;width:100%;">
 </div>
 
 <div class="container">
@@ -135,13 +39,21 @@ button:disabled{opacity:.4}
 <div class="card">
 <div class="label">ORDER ID</div>
 <div id="orderId" class="order">-</div><br>
+
 <div class="label">TOTAL PEMBAYARAN</div>
 <div id="total" class="total">Rp 0</div>
+
+<div class="info">
+<div><b>Jenis Tiket:</b> <span id="jenisTiket">-</span></div>
+<div><b>Jumlah Tiket:</b> <span id="jumlahTiket">0</span></div>
+<div><b>Nama:</b> <span id="namaPemesan">-</span></div>
+<div><b>WhatsApp:</b> <span id="waPemesan">-</span></div>
+</div>
 </div>
 
 <div class="card qrwrap">
 <div class="qr">
-<img src="qr.png" alt="QRIS">
+<img src="qri.png" alt="QRIS">
 </div>
 </div>
 
@@ -171,19 +83,32 @@ button:disabled{opacity:.4}
 
 <div id="loading" class="loading">
 <div class="spin"></div>
-<div id="txt" class="txt">PEMBAYARAN SEDANG DIPROSES</div>
+<h2 style="margin-top:20px">Memproses Pembayaran...</h2>
 </div>
 
 <script>
-document.getElementById('orderId').textContent =
-localStorage.getItem('orderId') || 'VTX-000001';
+if(!localStorage.getItem('orderId')){
+localStorage.setItem('orderId','VTX-'+Date.now());
+}
 
-document.getElementById('total').textContent =
-'Rp ' + Number(localStorage.getItem('totalPembayaran') || 0)
-.toLocaleString('id-ID');
+document.getElementById('orderId').textContent=localStorage.getItem('orderId');
+
+document.getElementById('total').textContent='Rp '+
+Number(localStorage.getItem('totalPembayaran')||0).toLocaleString('id-ID');
+
+document.getElementById('jenisTiket').textContent=
+localStorage.getItem('jenisTiket')||'-';
+
+document.getElementById('jumlahTiket').textContent=
+localStorage.getItem('jumlahTiket')||'0';
+
+document.getElementById('namaPemesan').textContent=
+localStorage.getItem('nama')||'-';
+
+document.getElementById('waPemesan').textContent=
+localStorage.getItem('wa')||'-';
 
 let uploaded=false;
-
 const file=document.getElementById('file');
 const cek=document.getElementById('cek');
 const btn=document.getElementById('btn');
@@ -204,29 +129,11 @@ updateBtn();
 cek.addEventListener('change',updateBtn);
 
 btn.addEventListener('click',()=>{
-
 document.getElementById('loading').style.display='flex';
-
-const msgs=[
-'Memverifikasi pembayaran...',
-'Mengecek bukti transfer...',
-'Menghubungkan ke sistem...',
-'Validasi transaksi...',
-'Menunggu konfirmasi...',
-'Pembayaran sedang diproses...'
-];
-
-let i=0;
-
-setInterval(()=>{
-i++;
-document.getElementById('txt').innerText=msgs[i%msgs.length];
-},3000);
 
 setTimeout(()=>{
 window.location.href='status.html';
-},120000);
-
+},5000);
 });
 </script>
 
