@@ -47,8 +47,8 @@ input,select,textarea{width:100%;padding:16px;margin-top:8px;border-radius:16px;
 
 <div class="card">
 <div class="title">Ringkasan Pesanan</div>
-<div class="summary-row"><span>Jenis Tiket</span><strong id="jenisTiket">EXTRA SALE FESTIVAL</strong></div>
-<div class="summary-row"><span>Jumlah Tiket</span><strong id="jumlahTiket">1</strong></div>
+<div class="summary-row"><span>Jenis Tiket</span><strong id="jenisTiket">-</strong></div>
+<div class="summary-row"><span>Jumlah Tiket</span><strong id="jumlahTiket">0</strong></div>
 <div class="summary-row total"><span>Total</span><span id="totalBayar">Rp0</span></div>
 </div>
 
@@ -71,6 +71,7 @@ input,select,textarea{width:100%;padding:16px;margin-top:8px;border-radius:16px;
 <div class="check"><input type="checkbox" id="setuju1"><label for="setuju1">Data yang saya isi adalah benar.</label></div>
 <div class="check"><input type="checkbox" id="setuju2"><label for="setuju2">Saya menyetujui syarat dan ketentuan acara.</label></div>
 </div>
+
 </div>
 
 <div class="bottom">
@@ -81,8 +82,14 @@ input,select,textarea{width:100%;padding:16px;margin-top:8px;border-radius:16px;
 
 <script>
 const total = localStorage.getItem('totalPembayaran') || 0;
+const jumlahTiket = localStorage.getItem('jumlahTiket') || 0;
+const jenisTiket = localStorage.getItem('jenisTiket') || '-';
+
 document.getElementById('totalBayar').innerText =
 'Rp' + Number(total).toLocaleString('id-ID');
+
+document.getElementById('jumlahTiket').innerText = jumlahTiket;
+document.getElementById('jenisTiket').innerText = jenisTiket;
 
 document.getElementById('lanjut').onclick=function(){
 
